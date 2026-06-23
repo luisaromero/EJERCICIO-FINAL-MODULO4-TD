@@ -1,0 +1,137 @@
+:root {
+  --accent: #7c8ea3;
+  --panel-bg: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --text-normal: white;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  font-family: "Noto Sans Mono", monospace;
+  color: var(--text-normal);
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  width: min(1200px, 100%);
+}
+
+header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+header p {
+  opacity: 0.7;
+}
+
+#user-count {
+  color: var(--text-normal);
+  font-weight: 700;
+}
+
+#cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.glass-card {
+  background: var(--panel-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 15px;
+  border: 1px solid var(--panel-border);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-info button {
+  background: rgba(255, 255, 255, 0.04);
+  font-family: "Noto Sans Mono", monospace;
+
+  border: 1px solid var(--panel-border);
+
+  color: var(--text-muted);
+
+  padding: 0.85rem 1rem;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  min-width: 220px;
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.user-info button:hover {
+  transform: translateY(-2px);
+
+  background: rgba(61, 97, 138, 0.533);
+
+  border-color: var(--accent);
+
+  color: var(--text-normal);
+}
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .user-info {
+    width: 100%;
+  }
+
+  .user-info button {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .glass-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  body {
+    padding: 0.75rem;
+  }
+}

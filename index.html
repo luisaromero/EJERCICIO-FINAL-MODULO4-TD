@@ -4,15 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Modulo 4</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./ASSETS/CSS/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>Ejercicio Final Módulo 4</h1>
-    <button id="btn-get-users">Traer todos los usuarios</button>
-    <button id="btn-search-user">Buscar usuario por nombre</button>
-    <button id="btn">Click</button>
-    <button id="btn">Click</button>
-    <button id="btn">Click</button>
+    <header>
+      <h1>Información de Usuarios</h1>
+      <p>Total de Usuarios: <span id="user-count">0</span></p>
+    </header>
+
+    <main>
+      <section class="user-info" aria-label="Acciones de usuarios">
+        <button id="btn-get-users">Nombres</button>
+        <button id="btn-search-user">Información básica</button>
+        <button id="btn-get-address">Direcciones</button>
+        <button id="btn-get-advanced-info">Información avanzada</button>
+        <button id="btn-get-companies">Compañías</button>
+        <button id="btn-get-ordered-users">Nombres de la A-Z</button>
+      </section>
+
+      <section id="results" class="glass-card">
+        <p>Selecciona una opción para mostrar resultados.</p>
+      </section>
+    </main>
+
     <script src="./ASSETS/JS/script.js"></script>
   </body>
 </html>

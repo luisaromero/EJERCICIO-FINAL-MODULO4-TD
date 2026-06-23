@@ -1,7 +1,11 @@
 const URL = "https://jsonplaceholder.typicode.com/users"
 
 const getUsersButton = document.getElementById('btn-get-users')
-const searchByName = document.getElementById('btn-search-user')
+const searchUserBasicInfo = document.getElementById('btn-search-user')
+const searchUserAdress = document.getElementById('btn-get-address')
+const searchUserAdvancedInfo = document.getElementById('btn-get-advanced-info')
+const searchListOfCompanies = document.getElementById('btn-get-companies')
+const orderUserNames = document.getElementById('btn-get-ordered-users')
 
 
 
@@ -60,6 +64,34 @@ class getUserData {
             console.log("Usuario no encontrado");
         }
     }
+    showUserAdress() {
+        const promptSearchByname = prompt("Ingrese el nombre del usuario:");
+        const nameUser = promptSearchByname.trim()
+        const userFound = this.getuserByName(nameUser);
+
+        if (userFound) {
+            console.log("Dirección", userFound.address);
+
+        } else {
+            console.log("Usuario no encontrado");
+        }
+
+    }
+    showUserAditionalInfo() {
+        const promptSearchByname = prompt("Ingrese el nombre del usuario:");
+        const nameUser = promptSearchByname.trim()
+        const userFound = this.getuserByName(nameUser);
+        if (userFound) {
+            console.log("Teléfono", userFound.phone);
+            console.log("Website", userFound.website);
+            console.log("Datos de la Compañia", userFound.company);
+
+
+        } else {
+            console.log("Usuario no encontrado");
+        }
+
+    }
 
 
 }
@@ -69,6 +101,12 @@ const _users = new getUserData();
 getUsersButton.addEventListener("click", () => {
     _users.getData();
 });
-searchByName.addEventListener('click', () => {
+searchUserBasicInfo.addEventListener('click', () => {
     _users.showUsernameAndEmail();
+})
+searchUserAdress.addEventListener('click', () => {
+    _users.showUserAdress()
+})
+searchUserAdvancedInfo.addEventListener('click', () => {
+    _users.showUserAditionalInfo()
 })
