@@ -92,6 +92,13 @@ class getUserData {
         }
 
     }
+    showCompanies() {
+        const companies = this.users.map(user => ({
+            name: user.name,
+            phrase: user.company.catchPhrase
+        }));
+        console.log(companies)
+    }
 
 
 }
@@ -109,4 +116,7 @@ searchUserAdress.addEventListener('click', () => {
 })
 searchUserAdvancedInfo.addEventListener('click', () => {
     _users.showUserAditionalInfo()
+})
+searchListOfCompanies.addEventListener('click', () => {
+    _users.showCompanies()
 })
