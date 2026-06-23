@@ -6,6 +6,7 @@ const searchUserAdress = document.getElementById('btn-get-address')
 const searchUserAdvancedInfo = document.getElementById('btn-get-advanced-info')
 const searchListOfCompanies = document.getElementById('btn-get-companies')
 const orderUserNames = document.getElementById('btn-get-ordered-users')
+const results = document.getElementById("results");
 
 
 
@@ -34,9 +35,10 @@ class getUserData {
     }
 
     getAllnames() {
-        this.users.forEach(user => {
-            console.log(user.name);
-        });
+        const allNames = this.users.map(user => ({
+            'Nombre de usuario': user.name,
+        }));
+        return allNames
     }
 
     getuserByName(name) {
@@ -81,10 +83,15 @@ class getUserData {
         const promptSearchByname = prompt("Ingrese el nombre del usuario:");
         const nameUser = promptSearchByname.trim()
         const userFound = this.getuserByName(nameUser);
+        console.log({ userFound })
         if (userFound) {
-            console.log("Teléfono", userFound.phone);
-            console.log("Website", userFound.website);
-            console.log("Datos de la Compañia", userFound.company);
+            const aditionalInfo = {
+                "Nombre de Usuario": userFound.name,
+                "Teléfono": userFound.phone,
+                "Website": userFound.website,
+                "Datos de la Compañia": userFound.company
+            }
+            return aditionalInfo
 
 
         } else {
@@ -94,19 +101,60 @@ class getUserData {
     }
     showCompanies() {
         const companies = this.users.map(user => ({
-            name: user.name,
-            phrase: user.company.catchPhrase
+            Compañia: user.name,
+            Frase: user.company.catchPhrase
         }));
-        console.log(companies)
+        return companies
+    }
+    orderedUserNames() {
+        const orderedNames = this.users.map(user => ({
+            'Nombre de usuario': user.name,
+        }));
+        return orderedNames
     }
 
 
 }
 
+const renderNames = (items) => {
+    console.log(items)
+    results.replaceChildren();
+
+    items.forEach(item => {
+        const block = document.createElement("div");
+
+        Object.entries(item).forEach(([key, value]) => {
+            const line = document.createElement("p");
+
+            const label = document.createElement("strong");
+            label.textContent = `${key}: `;
+
+            const text = document.createElement("span");
+            text.textContent = value;
+
+            line.appendChild(label);
+            line.appendChild(text);
+            block.appendChild(line);
+        });
+
+        results.appendChild(block);
+    });
+}
+
+function renderObject(obj) {
+    results.replaceChildren();
+    Object.entries(obj).forEach(([key, value]) => {
+        const line = document.createElement("p");
+        line.textContent = `${key}: ${value}`;
+        results.appendChild(line);
+    });
+}
+
 const _users = new getUserData();
 
 getUsersButton.addEventListener("click", () => {
-    _users.getData();
+    const allNames = _users.getAllnames()
+    renderNames(allNames);
 });
 searchUserBasicInfo.addEventListener('click', () => {
     _users.showUsernameAndEmail();
@@ -115,8 +163,14 @@ searchUserAdress.addEventListener('click', () => {
     _users.showUserAdress()
 })
 searchUserAdvancedInfo.addEventListener('click', () => {
-    _users.showUserAditionalInfo()
+    const aditionalInfo = _users.showUserAditionalInfo()
+    renderObject(aditionalInfo);
 })
 searchListOfCompanies.addEventListener('click', () => {
-    _users.showCompanies()
+    const companies = _users.showCompanies()
+    renderNames(companies);
+})
+orderUserNames.addEventListener('click', () => {
+    const orderedNames = _users.orderedUserNames()
+    renderNames(orderedNames)
 })
