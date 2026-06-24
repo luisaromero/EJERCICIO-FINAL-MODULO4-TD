@@ -52,7 +52,7 @@ header p {
   gap: 1rem;
 }
 
-.glass-card {
+.info-card {
   background: var(--panel-bg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -121,7 +121,7 @@ header p {
     min-width: unset;
   }
 
-  .glass-card {
+  .info-card {
     width: 100%;
     box-sizing: border-box;
   }
