@@ -60,8 +60,11 @@ class getUserData {
         const userFound = this.getuserByName(nameUser);
 
         if (userFound) {
-            console.log("Username:", userFound.username);
-            console.log("Correo:", userFound.email);
+            const basicInfo = {
+                "Username": userFound.username,
+                "Correo": userFound.email
+            }
+            return basicInfo
         } else {
             console.log("Usuario no encontrado");
         }
@@ -72,7 +75,11 @@ class getUserData {
         const userFound = this.getuserByName(nameUser);
 
         if (userFound) {
-            console.log("Dirección", userFound.address);
+            const userAdress = {
+                "Nombre de Usuario": userFound.name,
+                "Dirección": userFound.address
+            }
+            return userAdress
 
         } else {
             console.log("Usuario no encontrado");
@@ -86,11 +93,12 @@ class getUserData {
         console.log({ userFound })
         if (userFound) {
             const aditionalInfo = {
-                "Nombre de Usuario": userFound.name,
-                "Teléfono": userFound.phone,
-                "Website": userFound.website,
+                "Nombre de Usuario:": userFound.name,
+                "Teléfono:": userFound.phone,
+                "Website:": userFound.website,
                 "Datos de la Compañia": userFound.company
             }
+            console.log(aditionalInfo)
             return aditionalInfo
 
 
@@ -107,14 +115,12 @@ class getUserData {
         return companies
     }
     orderedUserNames() {
-        const orderedNames = this.users.map(user => ({
-            'Nombre de usuario': user.name,
-        }));
-        return orderedNames
+        return this.users
+            .map(user => ({ 'Nombre de usuario': user.name }))
+            .sort((a, b) => a['Nombre de usuario'].localeCompare(b['Nombre de usuario']));
     }
-
-
 }
+
 
 const renderNames = (items) => {
     console.log(items)
@@ -141,12 +147,64 @@ const renderNames = (items) => {
     });
 }
 
-function renderObject(obj) {
-    results.replaceChildren();
+
+const renderObject = (obj, container = results) => {
+    container.replaceChildren();
+
     Object.entries(obj).forEach(([key, value]) => {
-        const line = document.createElement("p");
-        line.textContent = `${key}: ${value}`;
-        results.appendChild(line);
+        if (typeof value === "object" && value !== null) {
+            const title = document.createElement("div");
+            const label = document.createElement("strong");
+            label.textContent = `${key}:`;
+            title.appendChild(label);
+            container.appendChild(title);
+
+            const block = document.createElement("div");
+            block.style.marginLeft = "1rem";
+            container.appendChild(block);
+
+            // recursivo para el objeto anidado, sin limpiar container
+            Object.entries(value).forEach(([nestedKey, nestedVal]) => {
+                const line = document.createElement("div");
+                const nestedLabel = document.createElement("strong");
+                nestedLabel.textContent = `${nestedKey}: `;
+                const span = document.createElement("span");
+                span.textContent = nestedVal;
+                line.appendChild(nestedLabel);
+                line.appendChild(span);
+                block.appendChild(line);
+            });
+        } else {
+            const line = document.createElement("div");
+            const label = document.createElement("strong");
+            label.textContent = `${key}: `;
+            const span = document.createElement("span");
+            span.textContent = value;
+            line.appendChild(label);
+            line.appendChild(span);
+            container.appendChild(line);
+        }
+    });
+}
+const renderAddress = (obj, container = results) => {
+    if (container === results) results.replaceChildren();
+
+    Object.entries(obj).forEach(([key, value]) => {
+        if (typeof value === "object" && value !== null) {
+            const title = document.createElement("p");
+            title.textContent = `${key}:`;
+            container.appendChild(title);
+
+            const block = document.createElement("div");
+            block.style.marginLeft = "1rem";
+            container.appendChild(block);
+
+            renderAddress(value, block);
+        } else {
+            const line = document.createElement("p");
+            line.textContent = `${key}: ${value}`;
+            container.appendChild(line);
+        }
     });
 }
 
@@ -157,10 +215,14 @@ getUsersButton.addEventListener("click", () => {
     renderNames(allNames);
 });
 searchUserBasicInfo.addEventListener('click', () => {
-    _users.showUsernameAndEmail();
+    const basicInfo = _users.showUsernameAndEmail();
+    renderObject(basicInfo, results)
+
 })
 searchUserAdress.addEventListener('click', () => {
-    _users.showUserAdress()
+    const userAdress = _users.showUserAdress()
+    renderAddress(userAdress, results)
+
 })
 searchUserAdvancedInfo.addEventListener('click', () => {
     const aditionalInfo = _users.showUserAditionalInfo()
