@@ -21,9 +21,6 @@
 3. Salida de datos :
    ![Imagen](./ASSETS/IMAGENES/output.png)
 
-4. En Mobile lo verás así :
-   ![Imagen](./ASSETS/IMAGENES/mobile-version.png)
-
 ##### Para ello debemos 💡:
 
 - Consumir una API externa
@@ -36,5 +33,10 @@
 ### Extras para la mostrar dinamicamente algunos datos
 
 - Recursividad para renderizar datos anidados.
+
+### Versión móbile
+
+En Mobile lo verás así :
+![Imagen](./ASSETS/IMAGENES/mobile-version.png)
 
 Autoría :💻 [Luisa Romero](https://github.com/luisaromero)
