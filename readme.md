@@ -21,7 +21,7 @@
 3. Salida de datos :
    ![Imagen](./ASSETS/IMAGENES/output.png)
 
-##### Para ello debemos 💡:
+#### Para ello debemos 💡:
 
 - Consumir una API externa
 - Procesar los datos recibidos y mostrarlos dinámicamente en el DOM.
@@ -36,7 +36,8 @@
 
 ### Versión móbile
 
-En Mobile lo verás así :
+- En Mobile lo verás así :
+
 ![Imagen](./ASSETS/IMAGENES/mobile-version.png)
 
 Autoría :💻 [Luisa Romero](https://github.com/luisaromero)
